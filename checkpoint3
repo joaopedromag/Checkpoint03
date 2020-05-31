@@ -1,0 +1,27 @@
+import base64
+from Crypto.Cipher import AES
+
+mensagem = ""
+resposta = "S"
+validacao = "sim"
+
+while resposta == "S":
+    pergunta = input ("Qual o nome do arquivo? ")
+    with open(pergunta, "rb") as arquivo:
+        binario_arquivo = arquivo.read()
+        dados64 = base64.urlsafe_b64encode(binario_arquivo)
+        mensagem = dados64.decode("utf-8")
+        print ("Arquivo Codificado - Este é seu base64\n")
+        print (mensagem)
+        print ("")
+        key = input ("Crie uma chave.(A chave deve ter 16 caracteres): ")
+        cod = input ("Insira o base64: (Sua hash deve ter 32 caracteres, adicione =): ")
+        print ("")
+        chavedois = print ("Nao compartilhe sua chave: ", key)
+        aes = AES.new(key, AES.MODE_ECB)
+        print ("")
+        print ("Seu codigo encripitado: ")
+        texto_limpo = cod
+        texto_criptado = aes.encrypt(texto_limpo)
+        print(texto_criptado)
+        exit()
